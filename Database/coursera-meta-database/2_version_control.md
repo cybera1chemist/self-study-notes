@@ -32,4 +32,26 @@ First `cd .git`, then `cat /refs/heads/main`: returns a hash code
 
 `cat .git/HEAD`: return which branch the HEAD is pointing to.
 
+#### Diff: Find the differences
+
+`git diff HEAD README.md`: returns the changes in this file
+
+`git log --pretty=oneline`: show logs
+
+`git diff main new_branch`: show differences between 2 branches
+
+#### Blame: Find who made the changes
+
+`git blame Feature.js`: returns all changes of this file
+
+`git blame -L 5,15 setup.py`:  only returns line5-line15
+
 ### Create a Repository with Forking
+
+Difference between branching and forking:
+
+Forking creates a new repository entirely.
+
+(clone other's repository into your account)
+
+就像在伯克利写作业的时候一样！
