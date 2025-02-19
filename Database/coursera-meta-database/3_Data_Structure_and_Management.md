@@ -4,13 +4,31 @@
 
 ### Filtering Data
 
-|     | Syntax |
-| ----- | ------ |
-| AND, OR, NOT | WHERE condition1 AND condition2|
-| IN | |
-| BETWEEN | |
-| LIKE | |
+|  关键字  | Syntax | Explanation |
+| ----- | ------ | --- |
+| AND, OR, NOT | WHERE condition1 AND condition2;| / |
+| IN | SELECT * FROM tb WHERE col IN (v1, v2);| col = v1 or v2 |
+| BETWEEN | SELECT * FROM tb WHERE col BETWEEN v1 AND v2;| v can be number or date |
+| LIKE | SELECT * FROM tb WHERE col LIKE pattern;||
 
+#### Patterns that can be used by LIKE:
+* %: 0, 1 or multiple characters
+* _: 1 single character
+example: LIKE 'g__%';    --begin with g, and len >= 3
+
+### Joining Tables
+
+#### Alias:
+
+Temporary names. Can rename col, functions, tables...
+
+`SELECT col1 AS col1_alias, col2, col3 AS col3_alias FROM tb;`
+
+example: 
+
+`SELECT CONCAT (f_name, " ", last_name) AS 'client_name' FROM client_details;`
+
+`SELECT t.first_col FROM a_long_name_table AS t;`
 
 ## Module 2: Update databases and working with views
 
