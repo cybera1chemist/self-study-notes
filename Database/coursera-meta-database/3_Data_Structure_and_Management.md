@@ -71,10 +71,30 @@ SELECT col1, col2 FROM tb WHERE condiion GROUP BY col1, col2;
 -- if there's a WHERE, GROUP BY must be after WHERE
 ```
 
+* Aggreate functions examples:
+
+SUM, AVERAGE, MAX, MIN, COUNT
+
+* Examples of using GROUP BY:
+
+1. See what departments do we have:
+
+`SELECT Department FROM orders GROUP BY Department;`
+
+This is identical to:
+
+`SELECT DISTINCT Department FROM orders;`
+
+2. Compute each department's total orders number:
+
+`SELECT Department, COUNT(Department) FROM orders GROUP BY Department;`
+
 
 #### HAVING:
 
+Syntax:
 
+`SELECT c1, c2, c3 FROM tb WHERE condition`
 
 ## Module 2: Update databases and working with views
 
