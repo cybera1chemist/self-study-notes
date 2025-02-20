@@ -40,7 +40,39 @@ example:
 |RIGHT JOIN|opposite of LEFT JOIN|`SELECT t1.col1, t2.col2 FROM t1 RIGHT JOIN t2 ON t1.col3 = t2.col4;`|
 |SELF JOIN|values in either table|`SELECT t1.col1, t2.col2 FROM table AS t1 INNER JOIN table AS t2 ON t1.col3 = t2.col4;`|
 
+* Note: When using SELF JOIN, we should use key word INNER JOIN and AS to use 1 table as 2 tables （什么弱智语法...）
+
 #### UNION:
+
+Purpose: Combine multiple columns.
+
+Syntax 1: by default, it returns distinct values
+
+`SELECT col1, col2 FROM tb1 UNION SELECT col1, col2 FROM tb2;`
+
+Requiremens:
+
+1. There are 2 `SELECT` here, and we must select the same number of columns.
+2. The related (unioned) columns must have the same data type.
+
+Syntax 2: use `ALL` to returns duplicated values
+
+`SELECT col1, col2 FROM tb1 UNION ALL SELECT col1, col2 FROM tb2;`
+
+
+### Grouping Data
+
+#### GROUP BY:
+
+Syntax:
+```
+SELECT col1, col2 FROM tb GROUP BY col1, col2;
+SELECT col1, col2 FROM tb WHERE condiion GROUP BY col1, col2;
+-- if there's a WHERE, GROUP BY must be after WHERE
+```
+
+
+#### HAVING:
 
 
 
