@@ -92,9 +92,19 @@ This is identical to:
 
 #### HAVING:
 
-Syntax:
+Syntax: (use it after GROUP BY)
 
-`SELECT c1, c2, c3 FROM tb WHERE condition`
+```
+SELECT c1, c2 FROM tb WHERE condition1
+GROUP BY c1
+HAVING condition2
+```
+
+Example: Filter the grouped rows.
+`SELECT Department, SUM(orderTotal) FROM orders GROUP BY Department HAVING SUM(orderTotal) > 2275;`
+
+* Difference from `WHERE`: we use where to filter the table first, then we select rows, then we group them. `HAVING` is used at last to filter the grouped table. （明明也用`WHERE`就行了……这到底谁发明的语言，发明者以为让编程语言 看着越像自然语言（英语）使用体验就会越好吗，《黑客与画家》里面说，如果设计师把用户都当傻子，就不可能设计出优雅的作品）
+* If we don't use `GROUP BY` and use `HAVING` by itself, it will be very similar to `WHERE`.
 
 ## Module 2: Update databases and working with views
 
