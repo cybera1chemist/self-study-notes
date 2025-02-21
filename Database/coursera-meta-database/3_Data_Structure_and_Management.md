@@ -108,6 +108,77 @@ Example: Filter the grouped rows.
 
 ## Module 2: Update databases and working with views
 
+### Use `REPLACE` to Update and Insert Data
+
+Syntax1: (very similar to `INSERT` command)
+```
+REPLACE INTO tb (c1, c2) VALUES (v1, v2);
+```
+Syntax2:
+```
+REPLACE INTO tb (c1, c2) SET col = value;
+-- This will replace other columns' values with NULLs where col = value
+```
+
+How it works?
+1. Check the primary keys (or `UNIQUE` keys)
+2. If it can't find any matching key, it will add new data (just like `INSERT`)
+3. Else, it will delete the matched key and replace it
+
+Example: Replace an old employee with a new one
+```
+-- 已知老员工的ID是1
+REPLACE INTO Employees(ID, name) VALUES (1, 'Mary');
+```
+
+### Constraints
+
+#### 3 types of constraints:
+|Constraint Type|Explanation|
+| ---- |----|
+|Key constraints|primary key|
+|Domain constraints|data type or data range|
+|Referential integrity constraints|the foreign key must exist in parent table|
+
+#### Ways to constraint columns:
+
+`not null`, `unique`, `check`, `cascade`
+
+Example:
+
+```
+create table customers(CustomerID INT not null primary key,
+    phoneNumber INT not null unique);
+create table bookings(ID int not null primary key,
+    NumOfGuests int not null CHECK(NumOfGuests<=8),
+    CustomerID, 
+    foreign key (CustomerID) References customers.CustomerID
+    ON DELETE CASCADE ON UPDATE CASCADE);
+```
+`ON DELETE CASCADE` or `ON UPDATE CASCADE`: if a customer is deleted in customer table, then bookings table can't reference it, so the coresponding rows will be deleted/updated too
+
+### Changing Table Structure
+
+#### Use `ALTER TABLE` to modify constraints
+
+|Command|Syntax|
+|----|----|
+|MODIFY|`ALTER TABLE tb MODIFY c1 int not null unique;`|
+|ADD|`ALTER TABLE tb ADD COLUMN col int check(col>=5); -- can either add constraint or not`|
+|DROP|`ALTER TABLE tb ADD COLUMN col;`|
+
+#### Use `COPY`
+
+Syntax1:
+```
+
+```
+
+### Sub-Queries
+
+### Virtual Tables
+
+
 ## Module 3: Functions and MySQL stored procedures
 
 ## Module 4: Wrap up
