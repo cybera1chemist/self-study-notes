@@ -204,9 +204,16 @@ other operators: ALL, ANY, SOME, EXISTS, NOT EXISTS
 
 `SELECT cols FROM tb WHERE EXISTS (sub-query)`: true if something <= v1 or v2 or v3
 
-### Virtual Tables
+### Virtual Tables: `VIEW`
 
+View: Virtual tables.
 
+Difference from table: A view dosen't store any data by itself. It only provides an interface to another table, and it acts like a table.
+
+```
+CREATE VIEW view_name AS alias
+SELECT tb1.col1, tb2.col2;
+```
 
 ## Module 3: Functions and MySQL stored procedures
 
