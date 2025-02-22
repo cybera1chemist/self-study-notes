@@ -167,16 +167,45 @@ create table bookings(ID int not null primary key,
 |ADD|`ALTER TABLE tb ADD COLUMN col int check(col>=5); -- can either add constraint or not`|
 |DROP|`ALTER TABLE tb ADD COLUMN col;`|
 
-#### Use `COPY`
+#### Copying tables
 
 Syntax1:
 ```
-
+CREATE TABLE new_tb SELECT cols FROM old_tb;
+```
+Syntax2:
+```
+CREATE TABLE database1.new_tb SELECT cols FROM db2.old_tb;
 ```
 
 ### Sub-Queries
 
+Definition: an inner query placed within an outer query
+
+(child query and parent query)
+
+Example:
+```
+SELECT cols FROM tb 
+WHERE expression operator (SELECT col FROM tb WHERE condition);
+```
+
+* operators:
+
+math operators: >, <, =, <=, >=...
+
+other operators: ALL, ANY, SOME, EXISTS, NOT EXISTS
+
+* Explanation:
+
+`SELECT cols FROM tb WHERE something <= ALL (v1, v2, v3)`: true if something <= v1 and v2 and v3
+
+`SELECT cols FROM tb WHERE something <= ANY (v1, v2, v3)`: true if something <= v1 or v2 or v3
+
+`SELECT cols FROM tb WHERE EXISTS (sub-query)`: true if something <= v1 or v2 or v3
+
 ### Virtual Tables
+
 
 
 ## Module 3: Functions and MySQL stored procedures
