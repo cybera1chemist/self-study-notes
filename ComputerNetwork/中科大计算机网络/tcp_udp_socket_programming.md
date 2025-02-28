@@ -1,4 +1,4 @@
-# TCP套接字编程
+# 2.8-2.9: TCP、UDP套接字编程
 
 ## Socket：
 
@@ -73,14 +73,133 @@ write(ConnectionSocket, ...);   // server
 
 client.c:
 ```c
-void main(){
+void main(int argc, char *argv[]){
+    struct sockaddr_in sad;
+    int clientSocket;
+    struct hostent *ptrh;   // pointer to host table
 
+    char Sentence[128];
+    char modifiedSentence[128];
+
+    host = argv[1]; port = atoi(argv[2]);
+
+    clientSocket = socket(PF_INET, SOCK_STREAM, 0); // sock_stream代表用的是tcp socket, 因为tcp是byte stream
+    memset((char*)&sad, 0, sizeof(sad));
+    sad.sin_family = AF_INET;
+    sad.sin_port = htons((u_short)port);
+    ptrh = gethostbyname(host);
+    memcpy(&sad.sin_addr, ptrh->h_addr, ptrh->h_length);
+    connect(clientSocket, (struct sockaddr *)&sad, sizeof(sad));
+
+    gets(Sentence); // get input stream from user
+    n = write(clientSocket, Sentence, strlen(Sentence)+1);  // Send to server
+    n = read(clientSocket, modifiedSentence, sizeof(modifiedSentence));
+    printf("From Server: %s\n", modifiedSentence);
+    close(clientSocket);
 }
 ```
 
 server.c:
 ```c
-void main(){
-    
+void main(int argc, char *argv[]){
+    struct sockaddr_in sad;
+    struct sockaddr_in cad; // client
+    int welcomeSocket, connectionSocket;
+    struct hostent *ptrh;
+
+    char clientSentence[128];
+    char modifiedSentence[128];
+
+    port = atoi(argv[1]);
+
+    welcomeSocket = socket(PF_INET, SOCK_STREAM, 0);
+    memset((char*)&sad, 0, sizeof(sad));
+    sad.sin_family = AF_INET;
+    sad.sin_addr.s_addr = INADDR_ANY;   // set local IP
+    sad.sin_port = htons((u_short)port);    // set port number
+    bind(welcomeSocket, (struct sockaddr *)&sad, sizeof(sad));
+
+    while(1){
+        connectionSocket = accept(welcomeSocket, (struct sockaddr*)&cad, &alen);
+        n = read(connectionSocket, clientSentence, sizeof(clientSentence));
+        /*Do some modification to the sentence*/
+        n = write(connectionSocket, modifiedSentence, strlen(modifiedSentence)+1);
+        close(connectionSocket);
+    }
+}
+```
+
+## UDP套接字编程
+
+没有握手，无连接服务
+
+Socket只代表两种信息（本地ip和udp port），所以发送报文必须带有对方的ip和port
+
+### 基本流程：
+
+1. Server建立一个serverSocket
+2. bind(socket, &sad)
+3. readfrom(socket, ...) 等待client发东西
+4. client建立clientSocket，和本地bind
+5. client sendto(...)
+6. server write reply to client
+
+### 代码
+
+#### client.c:
+```c
+void main(int argc, char *argv[]){
+    struct sockaddr_in sad;
+    int clientSocket;
+    struct hostent *ptrh;
+
+    char Sentence[128];
+    char modifiedSentence[128];
+
+    host = argv[1]; port = atoi(argv[2]);
+
+    clientSocket = socket(PF_INET, SOCK_DRAM, 0);   // sock_dram代表用的是udp socket, 因为udp是datagram
+
+    memset((char*)&sad, 0, sizeof(sad)); // 对SAD清零
+    sad.sin_family = AF_INET;   // 地址簇
+    sad.sin_port = htons((u_short)port);
+    ptrh = gethostbyname(host);
+    memcpy(&sad.sin_addr, ptrh->h_addr, ptrh->h_length);
+
+    gets(Sentence);
+    addr_en = sizeof(struct sockaddr);
+    n = sendto(clientSocket, Sentence, strlen(Sentence)+1, (struct sockaddr*)&sad, addr_len);
+
+    n = recvfrom(clientSocket, modifiedSentence, sizeof(modifiedSentence), (struct sockaddr*)&sad, &addr_len);
+
+    close(clientSocket);
+}
+```
+
+#### server.c:
+```c
+void main(int argc, char *argv[]){
+    struct sockaddr_in sad;
+    struct socketaddr_in cad;
+    int serverSocket;
+    struct hostent *ptrh;
+
+    char Sentence[128];
+    char modifiedSentence[128];
+
+    port = atoi(argv[1]);
+
+    serverSocket = socket(PF_INET, SOCK_DGRAM, 0);
+    memset((char*)&sad, 0, sizeof(sad));
+    sad.sin_family = AF_INET;
+    sad.sin_addr.s_addr = INADDRR_ANY;
+    sad.sin_port = htons((u_short)port);
+    bind(serverSocket, (struct sockaddr*)&sad, sizeof(sad));
+
+    while(1){
+        n = recvfrom((serverSocket), clientSentence, sizeof(clientSentence), 0)
+        /* Modify the sentence*/
+        n = sendto(serverSocket, modifiedSentence, strlen(capitalizedSentence)+1, (struct sockaddr*)&cad, &addr_len);
+    }
 }
 ```
