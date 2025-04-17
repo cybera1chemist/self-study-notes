@@ -220,3 +220,231 @@ example:
   <!--rel stands for relationship-->
 </head>
 ```
+
+# JavaScript
+
+## How to JavaScript
+
+### Types:
+
+#### The 5 primitive data types:
+
+- Boolean
+- Number
+- String
+- Null
+- Undefined
+
+#### Operators:
+
+Arithmetic: +, -, \*, /, \*\*
+
+Comparison: `===`, !==, <, >, <=, >=
+
+`===` vs `==`:
+|expression|boolean|
+|---|---|
+|`2 == 2`| True|
+|`2=="2"`| True!!!|
+|`2===2`| True|
+|`2==="2"`| False!
+
+### Basic Syntax:
+
+Example:
+
+```js
+// This is a greatest common divisor function.
+const GCD = (a, b) => {
+  // This is a strange way to write a function... We use "=" and "=>"
+  while (b != 0) {
+    const temp = b; // Every sentence ends with ";"
+    b = a % b;
+    a = temp;
+  }
+  return a;
+};
+
+// Define variables
+const x = 50; // This is a constant
+const y = 15;
+const gcd = GCD(x, y);
+let myNumber = 42; // We define a not-constant var
+let myString = "haha";
+myNumber = 55; // This var's value can be changed later
+```
+
+#### null vs. undefined:
+
+```js
+let firstName; // Now this var is undefined.
+firstName = "Albert"; // Now it's either undefined or null.
+firstName = null; // Now it's null.
+```
+
+### Output:
+
+#### log:
+
+`console.log()`: writes to the JavaScript console.
+
+(use it for debugging)
+
+Use template strings for logging:
+
+```js
+const a = 5;
+const b = 10;
+console.log(`a * b = ${a * b}`);
+```
+
+#### Alerts
+
+Pops up a notification.
+
+```js
+alert("Congratulations!");
+```
+
+### Flows
+
+#### if else
+
+```js
+if (hour < 12) {
+  console.log("Good morning");
+} else if (hour < 16) {
+  console.log("Good afternoon!");
+} else {
+  console.log("Good night!");
+}
+```
+
+#### loops
+
+```js
+// while loop
+let z = 1;
+while (z < 1000) {
+  z *= 2;
+  console.log(z);
+}
+
+// for loop
+const pets = ["cat", "dog", "pig", "bird", "fish", "rabbit", "sheep"];
+for (let i = 0; i < pets.length; i++) {
+  const phrase = "I love my " + pets[i];
+  console.log(phrase);
+}
+// for ... of ...
+for (const animal of pets) {
+  const phrase = "I love my " + pets[i];
+  console.log(phrase);
+}
+```
+
+## OOP:
+
+### Arrays:
+
+Example:
+
+```js
+let pets = ["string", 42, false]; // it can contain items of different types.
+console.lot(pets[0]); // Index is begin from 0
+pets[2] = "bird"; // Modify the array
+pets.pop(); // remove from end
+pets.push("rabbit"); // add to end
+```
+
+### Objects:
+
+example:
+
+```js
+// Define an object
+const myCar = {
+  make: "Ford",
+  model: "Musang",
+  year: 2025,
+  color: "sapphire",
+};
+
+// Access properties
+console.log(myCar.model);
+console.log(marCar["color"]);
+```
+
+Object destructuring:
+
+Obtain multiple properties at once. For example:
+
+```js
+// don't use object destructuring
+const make = myCar.make;
+const model = myCar.make;
+// use object destructuring
+const { make, model } = myCar;
+```
+
+### Equality
+
+Object variables are references. They point to where the data is actually stored. (Arrays are the same)
+
+#### To copy them:
+
+use the spread operator `...`:
+
+```js
+let arr = [1, 2, 3];
+let copyArr = [...arr];
+
+let obj = { name: "Bill Gates" };
+let copyObj = { ...obj };
+```
+
+## Functions:
+
+```js
+// Declare a function is just like declaring a variable!
+const cToF = (tempC) => {
+  const tempF = (tempC * 9) / 5 + 32;
+  return tempF;
+}; // Thus, we need to put a ";" at the end!
+```
+
+Callback Functions:
+
+Those functions who take another function(s) as their parameters.
+
+For example:
+
+```js
+setTimeout(() => {
+  console.log("I print");
+}, 5000);
+
+setInterval(() => {
+  console.log("I repeatedly pring");
+}, 5000);
+```
+
+## Classes:
+
+example:
+
+```js
+// Declare a class
+class Rectangle {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+  }
+  getArea = () => {
+    return this.width * this.height;
+  };
+}
+// Create an new object of that class
+const rect = new Rectangle(6, 8);
+console.log(rect.getArea());
+```
