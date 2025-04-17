@@ -20,7 +20,7 @@ Week4 Submit competition, judging, awards
 
 Client: Reguest GET url
 
-Server: Response webpage files 
+Server: Response webpage files
 
 (Files: html, css, JS, Assets)
 
@@ -69,63 +69,69 @@ Example: hello.html
 
 ```html
 <!DOCTYPE html>
-<html> <!--(Opening tag)-->
-    <head>
-        <title>Title!</title>
-    </head>
-    <body>
-        <h1>Heading!</h1>
-        <p>Paragraph!</p>
-    </body>
-</html> <!--(Closing tag)-->
+<html>
+  <!--(Opening tag)-->
+  <head>
+    <title>Title!</title>
+  </head>
+  <body>
+    <h1>Heading!</h1>
+    <p>Paragraph!</p>
+  </body>
+</html>
+<!--(Closing tag)-->
 ```
 
 Some Basic HTML Tags:
 
-|Tag|Purpose|
-|---|---|
-| `<html>` |Root|
-|`<head>`|Info about Document|
-|`<body>`|Body|
-|`<h1>`, `<h2>`, `<h3>`...| Header tags|
-|`<p>` | Paragraph tag|
-|`<div>`| Generic block section tag|
-|`<span>`| Generic inline section tag|
+| Tag                       | Purpose                    |
+| ------------------------- | -------------------------- |
+| `<html>`                  | Root                       |
+| `<head>`                  | Info about Document        |
+| `<body>`                  | Body                       |
+| `<h1>`, `<h2>`, `<h3>`... | Header tags                |
+| `<p>`                     | Paragraph tag              |
+| `<div>`                   | Generic block section tag  |
+| `<span>`                  | Generic inline section tag |
 
 ### HTML Attributes:
 
 `<tagname abc="xyz">`
 
-* Insert a link:
+- Insert a link:
 
 ```html
 <a href="some_url_link">The text you want to show here</a>
 ```
 
-* Insert an image:
+- Insert an image:
+
 ```html
-<img src="src_of_img"/>`
+<img src="src_of_img" />`
 ```
+
 - Not that this is a self-closing tag!
 - So we don't need to add `</img>` at the end!
+
 ```html
 <!-- Alt: when the image failed to display, the text will be shown-->
-<img src="img/someimg.gif" alt="This is a gif"/>
+<img src="img/someimg.gif" alt="This is a gif" />
 ```
 
 ### Lists
 
-|Tag|List|
-|---|---|
-|`<ol>`| Ordered List|
-|`<ul>`|Unordered List|
-|`<li>`| List Item|
+| Tag    | List           |
+| ------ | -------------- |
+| `<ol>` | Ordered List   |
+| `<ul>` | Unordered List |
+| `<li>` | List Item      |
 
 Example:
+
 ```html
 <ul>
-    <li>Item 1</li>
-    <li>Item 2</li>
+  <li>Item 1</li>
+  <li>Item 2</li>
 </ul>
 ```
 
@@ -139,18 +145,21 @@ Difference:
 
 ```html
 <div id="div-0">
-    <h2>Div 0!</h2>
-    <p>Paragraph!<p>
+  <h2>Div 0!</h2>
+  <p>Paragraph!</p>
+  <p></p>
 </div>
 
 <div id="div-1">
-    <h2>Div 1!</h2>
-    <p>Paragraph!<p>
+  <h2>Div 1!</h2>
+  <p>Paragraph!</p>
+  <p></p>
 </div>
 
 <span id="span-0"> This text is inside a span. </span>
 <span id="span-1"> This text is inside another span. </span>
 ```
+
 ### Useful Resources
 
 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">MDN Web Docs</a>
@@ -166,28 +175,48 @@ Difference:
 ### Rule
 
 selector + property + value
+
 ```css
 div {
-    color: red;
-    font-family: Arial;
-    font-size: 24pt;
+  color: red;
+  font-family: Arial;
+  font-size: 24pt;
 }
 ```
+
+- Note that tags like `<h1>` have some default style, but any customed css will overwrite them. (`h1 {...})
 
 ### Use `class`:
 
 ```html
 <h1>Heading</h1>
 <div>Paragraph</div>
-<div class="info"> Info </div> <!-- Notice that we add a class here-->
+<div class="info">Info</div>
+<!-- Notice that we add a class here-->
 ```
+
 ```css
 .info {
-    color: red;
+  color: red;
 }
 ```
+
 This will only change the style of `class="info"`, not all `div`.
 
 #### ID vs Class:
-* An element can only have 1 ID, but it can have multiple classes.
 
+- An element can only have 1 ID, but it can have multiple classes.
+- Different elements can't have the same ID. (1-to-1 relationship)
+
+## Combining HTML and CSS:
+
+example:
+
+```html
+<head>
+  <title>Title</title>
+  <!-- link is differnt from a. Don't use it to create a hyperlink!-->
+  <link rel="stylesheet" href="style.css" />
+  <!--rel stands for relationship-->
+</head>
+```
